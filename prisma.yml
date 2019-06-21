@@ -1,0 +1,11 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+secret: ${env:PRISMA_SECRET}
+datamodel: datamodel.prisma
+generate:
+  - generator: graphql-schema
+    output: ../danckel-apollo-server/src/generated/prisma.graphql
+  - generator: javascript-client
+    output: ./generated/prisma
+hooks:
+  post-deploy:
+    - prisma generate

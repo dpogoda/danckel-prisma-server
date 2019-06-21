@@ -1,0 +1,31 @@
+type User {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  roomnumber: Int! @unique
+  username: String
+  password: String!
+  fixrequests: [FixRequest!]! @relation(name: "UserFixRequests")
+  likes: [FixRequest!]! @relation(name: "UserLikes")
+  roles: [Role!]! @scalarList(strategy: RELATION)
+}
+
+type FixRequest {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  author: User! @relation(name: "UserFixRequests")
+  title: String!
+  text: String!
+  likes: [User!]! @relation(name: "UserLikes")
+  state: FixRequestState! @default(value: OPEN)
+}
+
+enum Role {
+  SV
+}
+
+enum FixRequestState {
+  OPEN
+  SOLVED
+}
