@@ -7,7 +7,9 @@ type User {
   password: String!
   fixrequests: [FixRequest!]! @relation(name: "UserFixRequests")
   likes: [FixRequest!]! @relation(name: "UserLikes")
+  dislikes: [FixRequest!]! @relation(name: "UserDislikes")
   roles: [Role!]! @scalarList(strategy: RELATION)
+	floor: [Floor!]! @relation(name: "UserFloor")
 }
 
 type FixRequest {
@@ -18,8 +20,20 @@ type FixRequest {
   title: String!
   text: String!
   likes: [User!]! @relation(name: "UserLikes")
+  dislikes: [User!]! @relation(name: "UserDislikes")
   state: FixRequestState! @default(value: OPEN)
 }
+
+type Floor {
+	id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+	floor: Int!
+	color: String!
+	remainingFloorMoney: Int!
+	members: [User!]! @relation(name: "UserFloor")
+}
+
 
 enum Role {
   SV
