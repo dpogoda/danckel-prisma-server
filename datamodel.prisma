@@ -34,6 +34,14 @@ type Floor {
 	members: [User!]! @relation(name: "UserFloor")
 }
 
+type News {
+	id: ID! @id
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+	title: String!
+	text: String!
+}
+
 
 enum Role {
   SV
