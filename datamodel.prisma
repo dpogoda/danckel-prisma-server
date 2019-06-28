@@ -42,6 +42,41 @@ type News {
 	text: String!
 }
 
+type MarketplaceItem {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  title: String!
+  text: String!
+  price: Float!
+  pictures: [String!]!
+  user: User! @relation(name: "UserMarketPlaceItem")
+  chatroom: Chatroom! @relation(name: "MarketplaceItemChatroom")
+}
+
+type Chatroom {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  title: String!
+  members: [User!]! @relation(name: "UserChatroom")
+  messages: [messages!]! @relation(name: "ChatroomMessage")
+  marketplaceitem: MarketplaceItem @relation(name: "MarketplaceItemChatroom")
+}
+
+type Message {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  type: MessageType! @scalarList(strategy: RELATION)
+  text: String
+  author: User! @relation(name: "UserMessage")
+}
+
+enum MessageType {
+  IMAGE,
+  TEXT
+}
 
 enum Role {
   SV
