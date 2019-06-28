@@ -10,6 +10,8 @@ type User {
   dislikes: [FixRequest!]! @relation(name: "UserDislikes")
   roles: [Role!]! @scalarList(strategy: RELATION)
 	floor: [Floor!]! @relation(name: "UserFloor")
+  marketplaceitems: [MarketplaceItem!]! @relation(name: "UserMarketPlaceItem")
+  chatrooms: [UserChatroom!]! @relation(name: "UserChatroom")
 }
 
 type FixRequest {
@@ -71,6 +73,7 @@ type Message {
   type: MessageType! @scalarList(strategy: RELATION)
   text: String
   author: User! @relation(name: "UserMessage")
+  chatroom: Chatroom! @relation(name: "ChatroomMessage")
 }
 
 enum MessageType {
